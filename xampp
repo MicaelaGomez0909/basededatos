@@ -1,0 +1,80 @@
+using MySql.Data.MySqlClient;
+
+string datos="datasource=127.0.0.1; port=3306; username=root;password=;database=alumnos";
+
+MySqlConnection Conexion= new MySqlConnection (datos);
+try{
+    Conexion.Open();
+    Console.WriteLine(Conexion.State);
+    //Conexion.Close();
+}
+catch(Exception e){
+    Console.WriteLine("error"+e.Message);
+}
+
+/*
+
+//Muestra lista de objetos
+
+MySqlDataReader lectura=null;
+string consulta="select*from alumnos";
+MySqlCommand ejecutar= new MySqlCommand(consulta,Conexion );
+lectura=ejecutar.ExecuteReader();
+while(lectura.Read()){
+    Console.Write(lectura.GetInt32(2));
+    Console.Write(lectura.GetString("nombre"));
+    Console.Write(lectura.GetString("apelido"));
+    Console.Write(lectura.GetDouble("notas"));
+    Console.Write(lectura.GetDouble("nota2"));
+    Console.WriteLine("\n");
+}*/
+
+/*
+//inserta nuevo objeto
+
+Console.WriteLine("Ingrese nombre");
+string nom=Console.ReadLine();
+Console.WriteLine("Ingrese apellido");
+string ape=Console.ReadLine();
+Console.WriteLine("Ingrese nota 1");
+double nota1=Convert.ToInt32(Console.ReadLine());
+Console.WriteLine("Ingrese nota 2");
+int nota2=Convert.ToInt32(Console.ReadLine());
+string create= "insert into alumnos (nombre, apelido, notas, nota2) values(@nombre, @apelido, @notas,@nota2)";
+MySqlCommand crear= new MySqlCommand (create ,Conexion);
+crear.Parameters.Add(new MySqlParameter("@nombre",nom));
+crear.Parameters.Add(new MySqlParameter("@apelido",ape));
+crear.Parameters.Add(new MySqlParameter("@notas",nota1));
+crear.Parameters.Add(new MySqlParameter("@nota2",nota2));
+crear.ExecuteNonQuery();*/
+
+//eliminar objeto
+
+/*Console.WriteLine("Ingrese id a borrar");
+int idnuevo=Convert.ToInt32(Console.ReadLine());
+string borrar= "delete from alumnos where id=@idnuevo";
+MySqlCommand eliminar=new MySqlCommand(borrar,Conexion);
+eliminar.Parameters.Add(new MySqlParameter("@idnuevo",idnuevo));
+eliminar.ExecuteNonQuery();*/
+
+
+//Modificar elemento
+
+Console.WriteLine("Ingrese id a modificar");
+int idaux=Convert.ToInt32(Console.ReadLine());
+Console.WriteLine("Ingrese nombre");
+string nom=Console.ReadLine();
+Console.WriteLine("Ingrese apellido");
+string ape=Console.ReadLine();
+Console.WriteLine("Ingrese nota 1");
+double nota1=Convert.ToInt32(Console.ReadLine());
+Console.WriteLine("Ingrese nota 2");
+int nota2=Convert.ToInt32(Console.ReadLine());
+string modificar="update alumnos set nombre=@nom, apelido=@ape,notas=@nota1,nota2=@nota2 where id=@idaux ";
+MySqlCommand update=new MySqlCommand(modificar,Conexion);
+update.Parameters.Add(new MySqlParameter("@idaux",idaux));
+update.Parameters.Add(new MySqlParameter("@nom",nom));
+update.Parameters.Add(new MySqlParameter("@ape",ape));
+update.Parameters.Add(new MySqlParameter("@nota1",nota1));
+update.Parameters.Add(new MySqlParameter("@nota2",nota2));
+update.ExecuteNonQuery();
